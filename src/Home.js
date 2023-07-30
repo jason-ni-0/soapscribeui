@@ -14,7 +14,7 @@ function Home(){
         // setLoading(true);
         if (!diagInput){ alert("Diagnosis cannot be empty"); return;}
         let promise = new Promise(function(resolve, reject) {
-          axios.get(`http://localhost:5000/generate`, { params: {diagnosis: diagInput}})
+          axios.get(`https://soapscribe-mxexbe64sq-uk.a.run.app/api/v1/generate`, { params: {diagnosis: diagInput}})
           .then(res => {
             console.log(res.data)
             setData(res.data);
