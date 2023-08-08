@@ -9,14 +9,13 @@ function Home(){
     const [diagInput, updateInput] = useState("");
     const [data, setData] = useState({});
     // const [loading, setLoading] = useState(false);
-
+    
     function handleStart(){
         // setLoading(true);
         if (!diagInput){ alert("Diagnosis cannot be empty"); return;}
         let promise = new Promise(function(resolve, reject) {
           axios.get(`https://soapscribe-mxexbe64sq-uk.a.run.app/api/v1/generate`, { params: {diagnosis: diagInput}})
           .then(res => {
-            console.log(res.data)
             setData(res.data);
             })
             .catch(function(error) {
@@ -35,7 +34,7 @@ function Home(){
 
     return(
         <div>
-            <NavBar></NavBar>
+            <NavBar setData={setData}></NavBar>
             {/*<LoadingOverlay class="loadingOverlay" spinner={<InfinitySpin color="#aa00ff"
             ariaLabel="three-dots-loading" />} styles={{
             overlay: base => ({
@@ -56,8 +55,7 @@ function Home(){
                     </div>
                     <button onClick={handleStart} id="btn" class="btn btn-primary btn-lg btn-block">Enter</button>
                 </div>
-            {data['diagnosis']? <Note diagnosis={data['diagnosis']}
-            symptoms={data['symptoms']} medTreat={data['medTreat']} plan={data['plan']}></Note> : null}
+            {data['diagnosis']? <Note data={data}></Note> : null}
             {/* </LoadingOverlay> */}
         </div>
     )
